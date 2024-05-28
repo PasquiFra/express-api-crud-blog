@@ -1,0 +1,16 @@
+{
+  "name": "express-api-crud-blog",
+  "version": "1.0.0",
+  "description": "Routing and middlewares with Express.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.1"
+  }
+}
