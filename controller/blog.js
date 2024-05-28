@@ -88,8 +88,6 @@ const create = (request, response) => {
 
     const { title, slug, content, tags } = request.body
 
-    console.log(request.file)
-
     if (!title || !slug || !content) {
         request.file?.filename && deleteFile(request.file.filename);
         return response.status(400).send('Some data is missing.');
@@ -97,6 +95,7 @@ const create = (request, response) => {
         request.file?.filename && deleteFile(request.file.filename);
         return response.status(400).send('Image is missing or it is not an image file.');
     }
+
 
     const newPost = {
         "title": title,
