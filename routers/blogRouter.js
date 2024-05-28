@@ -5,6 +5,7 @@ const blogController = require("../controller/blog.js");
 // Questo è il router di /posts
 
 router.get("/", blogController.index);
+router.post("/", blogController.create);
 router.get("/:slug", blogController.show);
 
 module.exports = router;

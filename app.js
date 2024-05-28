@@ -6,12 +6,18 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-// import del router
+// import dei router
 const blogRouter = require("./routers/blogRouter.js");
 
 //aggiungo il middleware che si occupa della cartella public
 app.use(express.static('./public'));
 //app.use(express.static(path.join(__dirname, 'public')));
+
+// questo comando permette di ricevere chiamate in post/put e di leggerne il body
+app.use(express.json());
+
+// Middleware per parsare application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
 //! ROUTES: lista delle rotte
 

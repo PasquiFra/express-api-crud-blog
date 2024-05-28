@@ -27,7 +27,13 @@ const writeJSONData = (fileName, newData) => {
     fs.writeFileSync(filePath, fileString);
 }
 
+const updatePosts = (newPosts) => {
+    const filePath = path.join(__dirname, './data/posts.json');
+    fs.writeFileSync(filePath, JSON.stringify(newPosts));
+}
+
 module.exports = {
     readJSONData,
-    writeJSONData
+    writeJSONData,
+    updatePosts
 };

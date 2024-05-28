@@ -1,5 +1,5 @@
 //importo le funzioni di read e write in functions.js
-const { readJSONData, writeJSONData } = require('../functions');
+const { readJSONData, writeJSONData, updatePosts } = require('../functions');
 
 //importo il file posts.json
 let posts = require("../data/posts.json");
@@ -84,13 +84,25 @@ const show = (request, response) => {
     })
 }
 
-const newPost = (request, response) => {
-    writeJSONData('posts', [...posts, request.body[0]]);
+const create = (request, response) => {
+
+    const newPost = {
+        "title": request.body.title,
+        "slug": request.body.slug,
+        "content": request.body.content,
+        "image": request.body.image,
+        "tags": request.body.tags
+    }
+
+    newPosts = [...posts, newPost];
+    posts = newPosts;
+    updatePosts(newPosts);
+
     response.send(`Post inviato correttamente`)
 }
 
 module.exports = {
     index,
     show,
-    newPost,
+    create,
 }
