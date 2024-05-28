@@ -97,5 +97,16 @@
             "Gas Fees",
             "Blockchain"
         ]
+    },
+    {
+        "title": "Ethereum vs Cardano",
+        "slug": "ethereum-vs-cardano",
+        "content": "Both Ethereum and Cardano are blockchain platforms that support smart contracts and dApps, but they have different approaches and features.",
+        "image": "f01788da1b254ff697d8c391a94c9d65",
+        "tags": [
+            "Ethereum",
+            "Cardano",
+            "Cryptocurrency"
+        ]
     }
 ]

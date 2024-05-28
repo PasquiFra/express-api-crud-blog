@@ -28,12 +28,19 @@ const writeJSONData = (fileName, newData) => {
 }
 
 const updatePosts = (newPosts) => {
+    posts = newPosts
     const filePath = path.join(__dirname, './data/posts.json');
     fs.writeFileSync(filePath, JSON.stringify(newPosts));
+}
+
+const deleteFile = (fileName) => {
+    const filePath = path.join(__dirname, '../public/img', fileName);
+    fs.unlinkSync(filePath);
 }
 
 module.exports = {
     readJSONData,
     writeJSONData,
-    updatePosts
+    updatePosts,
+    deleteFile
 };

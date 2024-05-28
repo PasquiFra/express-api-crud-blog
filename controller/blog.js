@@ -1,5 +1,5 @@
 //importo le funzioni di read e write in functions.js
-const { readJSONData, writeJSONData, updatePosts } = require('../functions');
+const { readJSONData, writeJSONData, updatePosts, deleteFile } = require('../functions');
 
 //importo il file posts.json
 let posts = require("../data/posts.json");
@@ -86,23 +86,50 @@ const show = (request, response) => {
 
 const create = (request, response) => {
 
+    const { title, slug, content, tags } = request.body
+
+    console.log(request.file)
+
+    if (!title || !slug || !content) {
+        request.file?.filename && deleteFile(request.file.filename);
+        return response.status(400).send('Some data is missing.');
+    } else if (!request.file || !request.file.mimetype.includes('image')) {
+        request.file?.filename && deleteFile(request.file.filename);
+        return response.status(400).send('Image is missing or it is not an image file.');
+    }
+
     const newPost = {
-        "title": request.body.title,
-        "slug": request.body.slug,
-        "content": request.body.content,
-        "image": request.body.image,
-        "tags": request.body.tags
+        "title": title,
+        "slug": slug,
+        "content": content,
+        "image": request.file.filename,
+        "tags": tags
     }
 
     newPosts = [...posts, newPost];
-    posts = newPosts;
     updatePosts(newPosts);
 
     response.send(`Post inviato correttamente`)
+}
+
+const destroy = (request, response) => {
+
+    const { slug } = request.params;
+
+    const postToDelete = posts.find(post => post.slug === slug);
+    if (!postToDelete) {
+        return response.status(404).send('Il post da cancellare non è stato trovato')
+    }
+    filteredPosts = posts.filter(post => post.slug != postToDelete.slug);
+    updatePosts(filteredPosts);
+    deleteFile(postToDelete.image);
+
+    response.send(`Post ${postToDelete.title} eliminato con successo`)
 }
 
 module.exports = {
     index,
     show,
     create,
+    destroy
 }
