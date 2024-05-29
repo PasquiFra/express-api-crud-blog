@@ -88,6 +88,7 @@ const create = (request, response) => {
 
     const { title, slug, content, tags } = request.body
 
+    // TODO: validazione completa dei dati in arrivo!
     if (!title || !slug || !content) {
         request.file?.filename && deleteFile(request.file.filename);
         return response.status(400).send('Some data is missing.');
@@ -96,7 +97,7 @@ const create = (request, response) => {
         return response.status(400).send('Image is missing or it is not an image file.');
     }
 
-
+    // inserimento del nuovo post 
     const newPost = {
         "title": title,
         "slug": slug,
@@ -105,9 +106,11 @@ const create = (request, response) => {
         "tags": tags
     }
 
+    // aggiornamento dei post 
     newPosts = [...posts, newPost];
     updatePosts(newPosts);
 
+    // feedback
     response.send(`Post inviato correttamente`)
 }
 

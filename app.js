@@ -9,24 +9,30 @@ const port = 3000;
 // import dei router
 const blogRouter = require("./routers/blogRouter.js");
 
-// Import dei middlewares
+// Import dei middlewares:
+// Logger delle rotte in cui si entra
 const routersLogger = require("./middlewares/routersLogger.js")
+// middleware delle rotte non consentite/inesistenti
 const routeNotFound = require("./middlewares/routeNotFound.js")
 
 //aggiungo il middleware che si occupa della cartella public
 app.use(express.static('./public'));
 
 // questo comando permette di ricevere chiamate in post/put e di leggerne il body
+//? controlla se il content-type della request è application/json
+//? in tal caso fà si che il body della request venga codificato correttamente
 app.use(express.json());
+
+// Middleware per parsare application/x-www-form-urlencoded
+// il pacchetto utilizza la funzionalità urlencoded (con pacchetto avanzato per la lettura della query)
+//? per controllare se il content-type della request è urlencoded, in tal caso fà si che il 
+//? body della request venga creato e letto dall'app
+app.use(express.urlencoded({ extended: true }));
 
 // console log delle rotte prese
 app.use(routersLogger);
 
-// Middleware per parsare application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
 //! ROUTES: lista delle rotte
-
 // Imposto la rotta Home e restituisco una vista standard
 app.get('/', (req, res) => {
     const filePath = path.join(__dirname, './index.html');
