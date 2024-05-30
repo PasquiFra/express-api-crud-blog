@@ -86,10 +86,14 @@ const show = (request, response) => {
 
 const create = (request, response) => {
 
-    const { title, slug, content, tags } = request.body
+    const { title, content, tags } = request.body
+
+    //TODO SLUGGER 
+    // Creo un componente ce si occuperà di creare lo slug ed effettuare i test necessari
+    const slug = slugger(title, posts)
 
     // TODO: validazione completa dei dati in arrivo!
-    if (!title || !slug || !content) {
+    if (!title || !slug || !content || !tags) {
         request.file?.filename && deleteFile(request.file.filename);
         return response.status(400).send('Some data is missing.');
     } else if (!request.file || !request.file.mimetype.includes('image')) {
